@@ -1,24 +1,25 @@
-# Predicting Average House Prices by State
+#  Housing Price Prediction – Capstone Project  
 
 **Author**: Sathwika Varma Kalidindi Chaitanya
 
------
+## 1. Research Question  
+**How do macroeconomic factors (mortgage rates, interest rates, lumber prices) and demographic trends (population distribution by age) influence housing prices in the U.S., and can regression and machine learning models accurately predict future price movements?**
 
-## Executive Summary
+---
 
-This project aims to explore the factors influencing average house prices across different US states from 2008 to 2019 and to build predictive models. We combined various datasets, including state-level Zillow Home Value Index, import/export data, GDP, real per capita income, house ownership rates, and several other economic and demographic indicators. After thorough data cleaning, merging, and exploratory data analysis (EDA), we trained and evaluated several regression models, including Linear Regression, Ridge, Lasso, Decision Tree, Support Vector Regression (SVR), and K-Nearest Neighbors (KNN). The **Linear Regression** model demonstrated the best performance with the lowest test RMSE, as shown in our results.
+## 2. Why This Question Is Important  
 
------
+The U.S. housing market is undergoing a structural shift.  
+- In 2004, nearly **3.2 million first-time homebuyers** entered the market.  
+- By 2024, that number had fallen by almost **two-thirds to just 1.14 million** (National Association of Realtors).  
+- Only **25% of home purchases last year** were by first-time buyers — a **historic low**.  
 
-## Rationale
+At the same time, builders remain eager to break ground, creating tension between **demand affordability** and **supply expansion**.  
 
-Understanding the key drivers of house prices is essential for various stakeholders, including potential homebuyers, investors, real estate developers, and policymakers. This project offers valuable insights into how state-level economic indicators, demographic shifts, and other factors correlate with and potentially influence average house values.
-
------
-
-## Research Question
-
-What factors significantly influence the average house price at the state level in the United States between 2008 and 2019, and which regression model can best predict these prices?
+Understanding how **macroeconomic conditions** (interest rates, mortgage rates, construction costs) and **demographic dynamics** (age distribution, household formation) shape housing prices is critical for:  
+- **Younger generations** – planning for long-term financial stability in housing markets  
+- **Builders and developers** – adjusting supply strategies to align with shifting demand  
+- **Financial institutions** – managing lending risk amid changing economic conditions  
 
 -----
 
@@ -42,50 +43,61 @@ What factors significantly influence the average house price at the state level 
 
 -----
 
-## Methodology
+## 3. Exploratory Data Analysis (EDA) – Key Insights  
 
-1.  **Data Loading and Cleaning**: Load data from various CSV files. Clean column names and convert data types as needed.
-2.  **Data Transformation and Merging**: Melt wide-format datasets to a long format. Filter data for the 2008-2019 period. Merge all datasets using common keys like `StateName`, `year`, and `month`.
-3.  **Exploratory Data Analysis (EDA)**:
-      * Visualize the correlation matrix of numerical features.
-      * Create time-series and scatter plots to analyze variable trends and relationships.
-      * Generate choropleth maps to visualize the geographical distribution of key metrics.
-4.  **Data Preprocessing for Modeling**:
-      * Drop non-numerical columns.
-      * Split the data into an 80/20 train-test set.
-      * Scale numerical features using `StandardScaler`.
-5.  **Model Training and Evaluation**:
-      * Build and train pipelines for various regression models using `GridSearchCV` for hyperparameter tuning.
-      * Evaluate model performance using Root Mean Squared Error (RMSE) on both training and testing sets.
-      * Compare RMSE scores to identify the best-performing model.
-      * Analyze feature importance and coefficients where applicable.
+- **Demographics as Drivers**  
+  - **Adults 35–54 and 26–34**: strong positive impact on prices — prime home-buying cohorts  
+  - **Adults 19–25**: negative impact — this group often rents instead of buys  
+  - **High house ownership rates**: associated with weaker new demand  
 
------
+- **Macroeconomic Factors**  
+  - **Mortgage & interest rates**: influence affordability and borrowing capacity  
+  - **GDP and imports of goods**: positively linked to stronger housing markets  
+  - **Export of goods**: negatively correlated, possibly reflecting capital outflows  
 
-## Results
+---
 
-Our analysis of the trained models yielded the following RMSE scores:
+## 4. Evaluation Metric — RMSE (Derived from MSE)
 
-| Model                      | Train RMSE | Test RMSE  |
-| -------------------------- | ---------- | ---------- |
-| **Linear Regression** | 3123.22    | **5700.44**|
-| Ridge                      | 3305.57    | 5952.09    |
-| Lasso                      | 7937.02    | 9817.43    |
-| Decision Tree              | 3741.40    | 9808.27    |
-| Support Vector Machine (SVM) | 64430.83   | 57723.75   |
-| Lasso Feature Selection    | 3198.82    | 5816.77    |
+**Reported metric:** RMSE (Root Mean Squared Error), which is the square root of Mean square error.  
 
-Based on this comparison, the **Linear Regression model** achieved the lowest test RMSE of **5700.44**, making it the best-performing model for predicting house prices in this dataset. The high RMSE of the SVM model suggests it was not a good fit.
+### Why RMSE?
+- RMSE is in the **same units as housing prices (dollars)**, making it more intuitive for interpretation.  
+- A **lower RMSE** means the model predictions are closer to actual housing prices on average.  
 
------
 
-## Next Steps
+## 4. Model Comparison – Predictive Performance  
 
-1.  **Feature Engineering**: Create new features, such as lagged variables or interaction terms, to potentially improve model performance.
-2.  **Explore Other Models**: Evaluate advanced regression algorithms like **Gradient Boosting** (e.g., XGBoost, LightGBM) or **Random Forest**.
-3.  **Time Series Cross-Validation**: Implement a more robust evaluation strategy tailored for time-series data.
-4.  **Investigate Weak Correlations**: Further analyze variables like mortgage rates to understand their limited correlation with house prices in this dataset.
-5.  **Analyze Residuals**: Examine the residuals of the best model to identify any systematic errors in its predictions.
+| Model                   | Train RMSE | Test RMSE |
+|--------------------------|-----------:|----------:|
+| Decision Tree            | 3,655      | 10,144    |
+| SVM                      | 64,431     | 57,724    |
+| Linear Regression        | 3,123      | 5,700     |
+| Ridge Regression         | 3,305      | 5,952     |
+| Lasso (Feature Selection)| 3,199      | 5,817     |
+| Lasso                    | 7,937      | 9,817     |
 
+### Interpretation  
+- **Linear, Ridge, and Lasso (feature selection)** give the best balance of accuracy and generalization  
+- **Decision Tree** shows overfitting — strong training results but weaker test accuracy  
+- **SVM** performs poorly and is not suitable for this dataset  
+- **Lasso (feature selection)** reduces irrelevant features while maintaining predictive power  
+
+---
+
+## 5. Investor Takeaways  
+
+- **Demographics drive demand**: Middle-aged buyers (26–54) remain the strongest upward force on prices  
+- **Macroeconomic conditions matter**: Mortgage rates and affordability are critical to predicting price movements  
+- **Over-saturation risks**: High ownership rates and younger renters reduce new demand pressure  
+- **Most reliable prediction models**: Ridge and Lasso (with feature selection) are best suited for forecasting housing prices  
+
+---
+
+## 6. Next Steps  
+
+- Expand dataset with **regional housing data** and **supply-side variables** (new builds, land availability)  
+- Develop **time-series forecasting** models to capture price movements over time  
+- Deploy into a **dashboard** for real-time monitoring, enabling investors, builders, and lenders to make informed decisions  
 
 

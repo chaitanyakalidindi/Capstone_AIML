@@ -1,6 +1,7 @@
 #  Housing Price Prediction – Capstone Project  
 
 **Author**: Sathwika Varma Kalidindi Chaitanya
+**Notebook**: https://github.com/chaitanyakalidindi/Capstone_AIML/blob/main/Capstone_Project_AIML.ipynb
 
 ## 1. Research Question  
 **How do macroeconomic factors (mortgage rates, interest rates, lumber prices) and demographic trends (population distribution by age) influence housing prices in the U.S., and can regression and machine learning models accurately predict future price movements?**
